@@ -76,3 +76,39 @@ cd frontend
 npm install
 npm start
 ```
+
+## Usage
+
+```
+Go to http://localhost:4200
+
+Register a new account
+
+Login with the same account
+
+Add, edit, delete, and filter tasks
+
+Logout when done
+```
+
+task-manager/
+│
+├── backend/ # Node.js + Express API
+│ ├── src/
+│ │ ├── models/ # Mongoose models
+│ │ ├── routes/ # Express routes
+│ │ ├── controllers/ # Controllers
+│ │ └── index.js # App entry point
+│ ├── package.json
+│ └── .env
+│
+├── frontend/ # Angular app
+│ ├── src/
+│ │ ├── app/
+│ │ │ ├── services/ # Auth + Task services
+│ │ │ ├── guards/ # Auth guards
+│ │ │ └── components/ # UI components
+│ ├── angular.json
+│ └── package.json
+│
+└── README.md
