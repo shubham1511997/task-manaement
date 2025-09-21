@@ -1,0 +1,345 @@
+// Variables for consistent theming
+$primary-color: #3b82f6;
+$primary-hover: #2563eb;
+$success-color: #10b981;
+$error-color: #ef4444;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$background-light: #f9fafb;
+$background-dark: #111827;
+$card-light: #ffffff;
+$card-dark: #1f2937;
+$border-light: #e5e7eb;
+$border-dark: #374151;
+$input-dark: #374151;
+
+:root {
+  --mat-paginator-container-background-color: transparent;
+  --mat-table-background-color: transparent;
+  --mat-table-header-headline-color: #fff;
+  --mat-table-row-item-label-text-color: #fff;
+  --mat-paginator-container-text-color: #fff;
+  --mat-select-enabled-trigger-text-color: #fff;
+  --mdc-icon-button-icon-color: #fff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #606c88; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #606c88,
+    #3f4c6b
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #606c88, #3f4c6b);
+}
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin shadow($level: 1) {
+  @if $level == 1 {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  } @else if $level == 2 {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  } @else if $level == 3 {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@mixin focus-ring($color: $primary-color) {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba($color, 0.1);
+  border-color: $color;
+}
+
+// Main container
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $background-light 0%, #e5e7eb 100%);
+  padding: 1rem;
+
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(135deg, $background-dark 0%, #0f172a 100%);
+  }
+}
+
+// Login card
+.login-card {
+  background: $card-light;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  @include shadow(3);
+  width: 100%;
+  max-width: 28rem;
+  @include transition();
+
+  @media (prefers-color-scheme: dark) {
+    background: $card-dark;
+    border: 1px solid $border-dark;
+  }
+
+  @media (max-width: 640px) {
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    @include shadow(3);
+  }
+}
+
+// Title
+.login-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: $text-primary;
+  text-align: center;
+  letter-spacing: -0.025em;
+
+  @media (prefers-color-scheme: dark) {
+    color: #f9fafb;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Form
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// Form groups
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+// Labels
+.form-label {
+  font-weight: 500;
+  color: $text-primary;
+  font-size: 0.875rem;
+  letter-spacing: 0.025em;
+
+  @media (prefers-color-scheme: dark) {
+    color: #d1d5db;
+  }
+}
+
+// Inputs
+.form-input {
+  max-width: 100%;
+  // width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid $border-light;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: $text-primary;
+  background: $card-light;
+  @include transition(border-color);
+
+  @media (prefers-color-scheme: dark) {
+    background: $input-dark;
+    border-color: $border-dark;
+    color: #f9fafb;
+  }
+
+  &:focus {
+    @include focus-ring();
+  }
+
+  &:hover {
+    border-color: lighten($primary-color, 20%);
+  }
+
+  &::placeholder {
+    color: $text-secondary;
+
+    @media (prefers-color-scheme: dark) {
+      color: #9ca3af;
+    }
+  }
+
+  // Error state
+  &.ng-invalid.ng-touched {
+    border-color: $error-color;
+
+    &:focus {
+      @include focus-ring($error-color);
+    }
+  }
+
+  // Success state
+  &.ng-valid.ng-touched {
+    border-color: $success-color;
+  }
+}
+
+// Login button
+.login-button {
+  width: 100%;
+  background: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  @include transition();
+  margin-top: 0.5rem;
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(
+      135deg,
+      $primary-hover 0%,
+      darken($primary-hover, 10%) 100%
+    );
+    transform: translateY(-1px);
+    @include shadow(2);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:focus {
+    @include focus-ring();
+  }
+
+  &:disabled {
+    background: $text-secondary;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.875rem;
+  }
+}
+
+// Register link
+.register-link {
+  text-align: center;
+  color: $text-secondary;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: #9ca3af;
+  }
+
+  a {
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: 500;
+    @include transition(color);
+
+    &:hover {
+      color: $primary-hover;
+      text-decoration: underline;
+    }
+
+    &:focus {
+      outline: 2px solid $primary-color;
+      outline-offset: 2px;
+      border-radius: 0.25rem;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  .login-card {
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  .login-title {
+    font-size: 1.5rem;
+  }
+
+  .form-input {
+    padding: 0.75rem;
+  }
+
+  .login-button {
+    padding: 0.75rem;
+  }
+}
+
+// Animation for form validation feedback
+.form-input {
+  &.ng-invalid.ng-touched {
+    animation: shake 0.5s ease-in-out;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+// Loading state for button
+.login-button {
+  position: relative;
+
+  &.loading {
+    color: transparent;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid transparent;
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

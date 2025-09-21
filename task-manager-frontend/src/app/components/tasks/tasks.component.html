@@ -1,0 +1,64 @@
+<div class="container my-4">
+  <div class="tasks-header d-flex justify-content-between align-items-start mb-4">
+    <h2>My Tasks</h2>
+    <button mat-raised-button color="warn" (click)="logout()">
+      Logout
+    </button>
+  </div>
+
+  <!-- Filter -->
+  <div class="mb-3 d-flex justify-content-between align-items-center">
+    <mat-form-field appearance="outline">
+      <mat-label>Status Filter</mat-label>
+      <mat-select [(value)]="statusFilter" (selectionChange)="applyFilter()">
+        <mat-option value="all">All</mat-option>
+        <mat-option value="pending">Pending</mat-option>
+        <mat-option value="completed">Completed</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="openTaskDialog()">Add Task</button>
+  </div>
+
+  <!-- Tasks Table -->
+  <div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1 w-100">
+
+      <!-- Title -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+        <td mat-cell *matCellDef="let task">{{ task.title }}</td>
+      </ng-container>
+
+      <!-- Description -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let task">{{ task.description }}</td>
+      </ng-container>
+
+      <!-- Status -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let task">{{ task.status }}</td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let task">
+          <button mat-icon-button color="light" (click)="openTaskDialog(task)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteTask(task)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

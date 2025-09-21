@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{ task?._id ? 'Edit Task' : 'Add Task' }}</h2>
+<form #taskForm="ngForm" (ngSubmit)="save(taskForm)">
+  <mat-dialog-content>
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="task.title" name="title" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="task.description" name="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="task.status" name="status" required>
+        <mat-option value="pending">Pending</mat-option>
+        <mat-option value="completed">Completed</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button type="button" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">{{ task?._id ? 'Update' : 'Add' }}</button>
+  </mat-dialog-actions>
+</form>

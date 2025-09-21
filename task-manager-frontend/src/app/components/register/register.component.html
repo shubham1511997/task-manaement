@@ -1,0 +1,79 @@
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="card p-4 shadow-sm " style="max-width: 400px; width: 100%;">
+    <h2 class="card-title text-center mb-4">Register</h2>
+
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" [(ngModel)]="username" required pattern="^[a-zA-Z0-9]{3,20}$"
+          #usernameRef="ngModel" class="form-control" placeholder="Enter your username" />
+        @if (usernameRef.invalid && usernameRef.touched) {
+
+        <div class="text-danger small mt-1">
+          Username must be 3-20 characters long, letters and numbers only.
+        </div>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" required email #emailRef="ngModel"
+          class="form-control" placeholder="Enter your email" />
+        @if (emailRef.invalid && emailRef.touched) {
+
+        <div class="text-danger small mt-1">
+          Please enter a valid email address.
+        </div>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3 position-relative">
+        <label for="password" class="form-label">Password</label>
+        <input [type]="showPassword ? 'text' : 'password'" id="password" name="password" [(ngModel)]="password" required
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" #passwordRef="ngModel"
+          class="form-control" placeholder="Enter password" />
+        <button type="button" class="btn bg-transparent border-0 btn-sm position-absolute bottom-0 end-0 py-2"
+          (click)="togglePassword()">
+          <i [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        </button>
+        @if (passwordRef.invalid && passwordRef.touched) {
+
+        <div class="text-danger small mt-1">
+          Password must be at least 8 characters, include uppercase, lowercase, number, and special character.
+        </div>
+        }
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-3 position-relative">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" name="confirmPassword"
+          [(ngModel)]="confirmPassword" required #confirmRef="ngModel" class="form-control"
+          placeholder="Confirm password" />
+        <button type="button" class="btn bg-transparent border-0 btn-sm position-absolute bottom-0 end-0 py-2"
+          (click)="toggleConfirmPassword()">
+          <i [ngClass]="showConfirmPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        </button>
+      </div>
+
+      <div *ngIf="password !== confirmPassword && confirmRef.touched" class="text-danger mb-3">
+        Passwords do not match
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" [disabled]="!registerForm.form.valid || password !== confirmPassword"
+        class="btn btn-success w-100">
+        Register
+      </button>
+
+      <p class="text-center mt-3">
+        Already have an account?
+        <a routerLink="/login" class="text-decoration-none">Login</a>
+      </p>
+    </form>
+  </div>
+</div>
